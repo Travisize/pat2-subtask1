@@ -35,4 +35,4 @@ string getMorse(char c) {
         case ' ': return " "; // space between words
         default: return "";   // skip any other characters
     }
-}
+   }
