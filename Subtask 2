@@ -3,55 +3,73 @@
 
 #include <iostream>
 using namespace std;
-// Function to get Morse code for a character
-string getMorse(char c) {
-    switch(toupper(c)) {
-        case 'A': return ".-";
-        case 'B': return "-...";
-        case 'C': return "-.-.";
-        case 'D': return "-..";
-        case 'E': return ".";
-        case 'F': return "..-.";
-        case 'G': return "--.";
-        case 'H': return "....";
-        case 'I': return "..";
-        case 'J': return ".---";
-        case 'K': return "-.-";
-        case 'L': return ".-..";
-        case 'M': return "--";
-        case 'N': return "-.";
-        case 'O': return "---";
-        case 'P': return ".--.";
-        case 'Q': return "--.-";
-        case 'R': return ".-.";
-        case 'S': return "...";
-        case 'T': return "-";
-        case 'U': return "..-";
-        case 'V': return "...-";
-        case 'W': return ".--";
-        case 'X': return "-..-";
-        case 'Y': return "-.--";
-        case 'Z': return "--..";
-        case ' ': return " "; // space between words
-        default: return "";   // skip any other characters
-    }
+
+// Function to get Morse code using ASCII dot (250) and dash (196)
+string getMorse(string letter) {
+    string dot = string(1, 250);   // ASCII dot
+    string dash = string(1, 196);  // ASCII dash
+
+    if (letter == "A") return dot + dash;
+    if (letter == "B") return dash + dot + dot + dot;
+    if (letter == "C") return dash + dot + dash + dot;
+    if (letter == "D") return dash + dot + dot;
+    if (letter == "E") return dot;
+    if (letter == "F") return dot + dot + dash + dot;
+    if (letter == "G") return dash + dash + dot;
+    if (letter == "H") return dot + dot + dot + dot;
+    if (letter == "I") return dot + dot;
+    if (letter == "J") return dot + dash + dash + dash;
+    if (letter == "K") return dash + dot + dash;
+    if (letter == "L") return dot + dash + dot + dot;
+    if (letter == "M") return dash + dash;
+    if (letter == "N") return dash + dot;
+    if (letter == "O") return dash + dash + dash;
+    if (letter == "P") return dot + dash + dash + dot;
+    if (letter == "Q") return dash + dash + dot + dash;
+    if (letter == "R") return dot + dash + dot;
+    if (letter == "S") return dot + dot + dot;
+    if (letter == "T") return dash;
+    if (letter == "U") return dot + dot + dash;
+    if (letter == "V") return dot + dot + dot + dash;
+    if (letter == "W") return dot + dash + dash;
+    if (letter == "X") return dash + dot + dot + dash;
+    if (letter == "Y") return dash + dot + dash + dash;
+    if (letter == "Z") return dash + dash + dot + dot;
+    if (letter == " ") return " ";
+    return "";
 }
+
+// Manual uppercase conversion
+string toUpper(string input) {
+    string result = "";
+    for (int i = 0; i < input.length(); i++) {
+        string ch = input.substr(i, 1);
+        if (ch >= "a" && ch <= "z") {
+            ch = string(1, ch[0] - 32);
+        }
+        result += ch;
+    }
+    return result;
+}
+
 int main() {
-    char message[100];
-    
+    string message;
+
     cout << "Enter a short message: ";
-    cin.getline(message, 100);
-    
+    getline(cin, message);
+
+    message = toUpper(message);
+
     cout << "\nOutput Morse code:\n";
 
     string fullMorse = "";
 
-    for (int i = 0; message[i] != '\0'; i++) {
-        char c = message[i];
-        string morse = getMorse(c);
+    for (int i = 0; i < message.length(); i++) {
+        string letter = message.substr(i, 1);
+        string morse = getMorse(letter);
         if (morse != "") {
-            cout << (char)toupper(c) << ": " << morse << endl;
-            fullMorse += morse + "   "; // 3 spaces between letters
+            cout << letter << ": " << morse << endl;
+            fullMorse += morse + "   ";
         }
     }
 
