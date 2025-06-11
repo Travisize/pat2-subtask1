@@ -35,4 +35,28 @@ string getMorse(char c) {
         case ' ': return " "; // space between words
         default: return "";   // skip any other characters
     }
-   }
+}
+int main() {
+    char message[100];
+    
+    cout << "Enter a short message: ";
+    cin.getline(message, 100);
+    
+    cout << "\nOutput Morse code:\n";
+
+    string fullMorse = "";
+
+    for (int i = 0; message[i] != '\0'; i++) {
+        char c = message[i];
+        string morse = getMorse(c);
+        if (morse != "") {
+            cout << (char)toupper(c) << ": " << morse << endl;
+            fullMorse += morse + "   "; // 3 spaces between letters
+        }
+    }
+
+    cout << "\nFull Morse code with spaces:\n";
+    cout << fullMorse << endl;
+
+    return 0;
+
